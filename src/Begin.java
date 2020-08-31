@@ -1,6 +1,5 @@
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -9,6 +8,7 @@ public class Begin {
     public Begin() {
         JFrame frame = new JFrame("Begin");
         frame.setContentPane(this.panel1);
+        mainArea.setVisible(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -34,6 +34,7 @@ public class Begin {
             }
         });
     }
+    private GamePanel gamePanel;
     private File file;
     private JTabbedPane tabbedPane1;
     private JPanel panel1;
@@ -45,5 +46,6 @@ public class Begin {
     private JRadioButton numberRadioButton;
     private JComboBox comboBox1;
     private JButton choosePictureButton;
+    private JPanel mainArea;
 
 }
