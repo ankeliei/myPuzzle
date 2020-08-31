@@ -10,7 +10,8 @@ public class Begin {
 
         JFrame frame = new JFrame("Begin");
         frame.setContentPane(this.panel1);
-        mainArea.setVisible(false);
+//        mainArea.setVisible(false);
+        settings = new Settings();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -18,12 +19,10 @@ public class Begin {
         newGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                System.out.println("点击了开始游戏按钮");
-//                new Game();
-                settings = new Settings();
+                System.out.println("点击了开始游戏按钮");
+
                 gamePanel = new GamePanel(settings);
                 mainArea.add(gamePanel);
-                //TODO:未解决，看这里
                 //https://stackoverflow.com/questions/9639017/intellij-gui-creator-jpanel-gives-runtime-null-pointer-exception-upon-adding-an
                 mainArea.revalidate();
                 mainArea.setVisible(true);
@@ -34,7 +33,7 @@ public class Begin {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("点击了文件选择按钮");
                 JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setCurrentDirectory(new File("C:\\Users\\Administrator\\Desktop"));
+//                fileChooser.setCurrentDirectory(new File("C:\\Users\\Administrator\\Desktop"));
                 fileChooser.setFileFilter(new FileNameExtensionFilter("image(*.jpg, *.png, *.gif)", "jpg", "png", "gif"));
                 int result = fileChooser.showOpenDialog(fileChooser);
                 if (result == JFileChooser.APPROVE_OPTION) {

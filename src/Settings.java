@@ -7,7 +7,7 @@ public class Settings {
 
     public Settings(){
         order = 3;
-        file = new File("C:\\Users\\Administrator\\IdeaProjects\\myPuzzle\\pictures\\蒙娜丽莎（默认）.jpg");
+        file = new File("src/pictures/蒙娜丽莎（默认）.jpg");
         lable = false;
     }
 

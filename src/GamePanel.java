@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -9,17 +10,20 @@ public class GamePanel extends JPanel implements MouseListener {
 
     private Settings settings;
     private Cell cells[];
-    int ImageHeight;
-    int ImageWidth;
+    private int totalSize;
 
     public GamePanel(Settings settings) {
         this.settings = settings;
         cells = new Cell[settings.getOrder()*settings.getOrder()];
-        this.setLayout(null);
+        GridLayout gy = new GridLayout(settings.getOrder(),settings.getOrder());
+        this.setLayout(gy);
         init();
+        this.setMaximumSize(new Dimension(totalSize,totalSize));
     }
 
     public void init() {
+        int ImageHeight;
+        int ImageWidth;
         int order = 0;
         BufferedImage buf = null;               //原始图片读入
         BufferedImage bufnew = null;            //单个按钮图片读入
@@ -47,12 +51,12 @@ public class GamePanel extends JPanel implements MouseListener {
 
         for (int i=0; i<settings.getOrder(); i++){
             for (int j=0; j<settings.getOrder(); j++){
-                bufnew = buf.getSubimage(i*singleSize, j*singleSize, singleSize, singleSize);
+                bufnew = buf.getSubimage(startX+j*singleSize, startY+i*singleSize, singleSize, singleSize);     //这里注意，i,j与X，Y的方向存在转换问题
                 icon = new ImageIcon(bufnew);
                 cells[i*settings.getOrder()+j] = new Cell(icon, i*settings.getOrder()+j, singleSize, settings.getLable());
 
                 if(i==j && i==(settings.getOrder()-1)){         //如果到了右下角，按钮的背景图设置为纯白，标签置空。
-                    ImageIcon iconWhite = new ImageIcon("C:\\Users\\Administrator\\IdeaProjects\\myPuzzle\\pictures\\white.jpg");
+                    ImageIcon iconWhite = new ImageIcon("src/pictures/white.jpg");
                     cells[i*settings.getOrder()+j].setIcon(iconWhite);
                     cells[i*settings.getOrder()+j].setText("");
                 }
@@ -63,6 +67,8 @@ public class GamePanel extends JPanel implements MouseListener {
             this.add(cells[i]);
             if(i<cells.length-2) cells[i].addMouseListener(this);
         }
+
+        totalSize = singleSize*settings.getOrder();
     }
 
 
