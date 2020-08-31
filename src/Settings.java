@@ -5,6 +5,12 @@ public class Settings {
     private File file;
     private boolean lable;
 
+    public Settings(){
+        order = 3;
+        file = new File("C:\\Users\\Administrator\\IdeaProjects\\myPuzzle\\pictures\\蒙娜丽莎（默认）.jpg");
+        lable = false;
+    }
+
     public boolean getLable() {
         return lable;
     }

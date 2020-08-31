@@ -1,17 +1,20 @@
 import javax.swing.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements MouseListener {
 
     private Settings settings;
-    private Cell cells[] = new Cell[settings.getOrder()*settings.getOrder()];
+    private Cell cells[];
     int ImageHeight;
     int ImageWidth;
 
-    public GamePanel() {
+    public GamePanel(Settings settings) {
+        this.settings = settings;
+        cells = new Cell[settings.getOrder()*settings.getOrder()];
         this.setLayout(null);
         init();
     }
@@ -49,11 +52,42 @@ public class GamePanel extends JPanel {
                 cells[i*settings.getOrder()+j] = new Cell(icon, i*settings.getOrder()+j, singleSize, settings.getLable());
 
                 if(i==j && i==(settings.getOrder()-1)){         //如果到了右下角，按钮的背景图设置为纯白，标签置空。
-                    ImageIcon iconWhite = new ImageIcon("pictures/white.jpg");
+                    ImageIcon iconWhite = new ImageIcon("C:\\Users\\Administrator\\IdeaProjects\\myPuzzle\\pictures\\white.jpg");
                     cells[i*settings.getOrder()+j].setIcon(iconWhite);
                     cells[i*settings.getOrder()+j].setText("");
                 }
             }
         }
+
+        for(int i=0; i<cells.length-1; i++) {
+            this.add(cells[i]);
+            if(i<cells.length-2) cells[i].addMouseListener(this);
+        }
+    }
+
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }

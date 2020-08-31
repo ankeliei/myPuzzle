@@ -5,18 +5,28 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 public class Begin {
+
     public Begin() {
+
         JFrame frame = new JFrame("Begin");
         frame.setContentPane(this.panel1);
         mainArea.setVisible(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+
         newGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("点击了开始游戏按钮");
-                new Game();
+//                System.out.println("点击了开始游戏按钮");
+//                new Game();
+                settings = new Settings();
+                gamePanel = new GamePanel(settings);
+                mainArea.add(gamePanel);
+                //TODO:未解决，看这里
+                //https://stackoverflow.com/questions/9639017/intellij-gui-creator-jpanel-gives-runtime-null-pointer-exception-upon-adding-an
+                mainArea.revalidate();
+                mainArea.setVisible(true);
             }
         });
         choosePictureButton.addActionListener(new ActionListener() {
@@ -34,7 +44,9 @@ public class Begin {
             }
         });
     }
+    private JPanel mainArea;
     private GamePanel gamePanel;
+    private Settings settings;
     private File file;
     private JTabbedPane tabbedPane1;
     private JPanel panel1;
@@ -46,6 +58,5 @@ public class Begin {
     private JRadioButton numberRadioButton;
     private JComboBox comboBox1;
     private JButton choosePictureButton;
-    private JPanel mainArea;
 
 }
