@@ -2,42 +2,62 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Cell extends JButton {
-    private static int buttonSize;
-    private static int ID;
-    private static String lable;
+    private int buttonSize;
+    private int ID;
+    private String tag;
+    private int positionX;
+    private int positionY;
 
-    public Cell(Icon icon, int id, int buttonSize, boolean lable){
+    public Cell(Icon icon, int id, int buttonSize, boolean tag, int positionX, int positionY){
         this.setIcon(icon);
         ID = id;
-        Cell.buttonSize = buttonSize;
+        this.buttonSize = buttonSize;
         Dimension preferredSize = new Dimension(buttonSize,buttonSize);
         this.setPreferredSize(preferredSize);       //设置按钮预期大小
         //this.setBorderPainted(false);
         this.setBorder(null);                       //设置按钮不显示边框
-        if (lable) {
+        if (tag) {
             this.setText(""+id);
         }
+        this.positionX = positionX;
+        this.positionY = positionY;
     }
 
-    public static int getButtonSize() {
+    public int getButtonSize() {
         return buttonSize;
     }
 
-    public static int getID() {
+    public int getID() {
         return ID;
     }
 
-    public static String getLable() {
-        return lable;
+    public String getTag() {
+        return tag;
     }
 
-    public static void setButtonSize(int buttonSize) { Cell.buttonSize = buttonSize; }
+    public void setButtonSize(int buttonSize) { this.buttonSize = buttonSize; }
 
-    public static void setID(int ID) {
-        Cell.ID = ID;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
-    public static void setLable(String lable) {
-        Cell.lable = lable;
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public int getPositionX() {
+        return positionX;
+    }
+
+    public int getPositionY() {
+        return positionY;
+    }
+
+    public void setPositionX(int x) {
+        this.positionX = x;
+    }
+
+    public void setPositionY(int y) {
+        this.positionY = y;
     }
 }

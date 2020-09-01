@@ -53,7 +53,8 @@ public class GamePanel extends JPanel implements MouseListener {
             for (int j=0; j<settings.getOrder(); j++){
                 bufnew = buf.getSubimage(startX+j*singleSize, startY+i*singleSize, singleSize, singleSize);     //这里注意，i,j与X，Y的方向存在转换问题
                 icon = new ImageIcon(bufnew);
-                cells[i*settings.getOrder()+j] = new Cell(icon, i*settings.getOrder()+j, singleSize, settings.getLable());
+                cells[i*settings.getOrder()+j] = new Cell(icon, i*settings.getOrder()+j, singleSize, settings.getLable(), j, i);
+//                cells[i*settings.getOrder()+j] = new Cell(icon, i*settings.getOrder()+j, singleSize, settings.getLable());
 
                 if(i==j && i==(settings.getOrder()-1)){         //如果到了右下角，按钮的背景图设置为纯白，标签置空。
                     ImageIcon iconWhite = new ImageIcon("src/pictures/white.jpg");
