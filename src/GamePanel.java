@@ -63,10 +63,14 @@ public class GamePanel extends JPanel implements MouseListener {
             }
         }
 
-//        for(int i=0; i<cells.length-1; i++) {
-//            this.add(cells[i]);
-//            if(i<cells.length-2) cells[i].addMouseListener(this);
-//        }
+        for(int i=0; i<cells.length-1; i++) {
+            this.add(cells[i]);
+            if(i<cells.length-2)
+                cells[i].addMouseListener(this);
+        }
+
+//        ViewCells();
+
 
         totalSize = singleSize*settings.getOrder();
     }
@@ -138,7 +142,11 @@ public class GamePanel extends JPanel implements MouseListener {
     }
     @Override
     public void mouseClicked(MouseEvent e) {
-        Cell t = (Cell)e.getSource();
+//        Cell t = (Cell)e.getSource();
+//        if(t.getY()==cells[cells.length-1].getY() && t.getX()==cells[cells.length-1].getX()-1) this.move(0);
+//        if(t.getY()==cells[cells.length-1].getY()-1 && t.getX()==cells[cells.length-1].getX()) this.move(1);
+//        if(t.getY()==cells[cells.length-1].getY() && t.getX()==cells[cells.length-1].getX()+1) this.move(2);
+//        if(t.getY()==cells[cells.length-1].getY()+1 && t.getX()==cells[cells.length-1].getX()) this.move(3);
     //    if(cells[t.getX()+1])
     }
 
