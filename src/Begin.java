@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -10,7 +11,6 @@ public class Begin {
 
         JFrame frame = new JFrame("Begin");
         frame.setContentPane(this.panel1);
-//        mainArea.setVisible(false);
         settings = new Settings();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
