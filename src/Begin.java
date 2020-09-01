@@ -25,7 +25,6 @@ public class Begin {
                 mainArea.add(gamePanel);
                 //https://stackoverflow.com/questions/9639017/intellij-gui-creator-jpanel-gives-runtime-null-pointer-exception-upon-adding-an
                 mainArea.revalidate();
-                mainArea.setVisible(true);
             }
         });
         choosePictureButton.addActionListener(new ActionListener() {

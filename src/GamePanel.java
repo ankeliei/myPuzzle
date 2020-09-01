@@ -18,8 +18,6 @@ public class GamePanel extends JPanel implements MouseListener {
         GridLayout gy = new GridLayout(settings.getOrder(),settings.getOrder());        //设置一个网格布局
         this.setLayout(gy);
         init();
-        this.setPreferredSize(new Dimension(totalSize,totalSize));
-        this.setMaximumSize(new Dimension(totalSize,totalSize));
     }
 
     public void init() {
@@ -75,71 +73,71 @@ public class GamePanel extends JPanel implements MouseListener {
         totalSize = singleSize*settings.getOrder();
     }
 
-    public void ViewCells() {
-        for (int i=0; i<settings.getOrder(); i++) {
-            for (int j=0; j<settings.getOrder(); j++) {
-                for(int k=0; k<cells.length; k++) {
-                    if(cells[k].getX()==j && cells[k].getY()==i){
-                        this.add(cells[k]);
-                    }
-                }
-            }
-        }
-    }
-
-    public void OutofOrder(){
-
-    }
-    public int move(int n){                                             //单步移动方法
-        if(n==0 && cells[cells.length-1].getX()!=0){       //左侧块右移
-            for (Cell cell : cells) {
-                if (cell.getX() == cells[cells.length - 1].getX() - 1 && cell.getY() == cells[cells.length - 1].getY()) {
-                    cell.setX(cell.getX() + 1);
-                    cells[cells.length - 1].setX(cells[cells.length - 1].getX() - 1);
-                    return 1;
-                }
-            }
-            return 0;
-        }
-        if(n==1 && cells[cells.length-1].getY()!=0){       //上侧块下移
-            for (Cell cell : cells) {
-                if (cell.getX() == cells[cells.length - 1].getX() && cell.getY() == cells[cells.length - 1].getY() - 1) {
-                    cell.setY(cell.getY() + 1);
-                    cells[cells.length - 1].setY(cells[cells.length - 1].getY() - 1);
-                    return 1;
-                }
-            }
-            return 0;
-        }
-        if(n==2 && cells[cells.length-1].getX()!=settings.getOrder()-1){       //右侧块左移
-            for (Cell cell : cells) {
-                if (cell.getX() == cells[cells.length - 1].getX() + 1 && cell.getY() == cells[cells.length - 1].getY()) {
-                    cell.setX(cell.getX() - 1);
-                    cells[cells.length - 1].setX(cells[cells.length - 1].getX() + 1);
-                    return 1;
-                }
-            }
-            return 0;
-        }
-        if(n==3 && cells[cells.length-1].getY()!=settings.getOrder()-1){       //下侧块上移
-            for (Cell cell : cells) {
-                if (cell.getX() == cells[cells.length - 1].getX() && cell.getY() == cells[cells.length - 1].getY() + 1) {
-                    cell.setY(cell.getY() - 1);
-                    cells[cells.length - 1].setY(cells[cells.length - 1].getY() + 1);
-                    return 1;
-                }
-            }
-            return 0;
-        }
-        else return 0;
-    }
-
-    public boolean IsWin(){
-        for (Cell cell : cells) {
-            if (cell.getX() * settings.getOrder() + cell.getY() != cell.getID()) return false;
-        }
-        return true;
-    }
+//    public void ViewCells() {
+//        for (int i=0; i<settings.getOrder(); i++) {
+//            for (int j=0; j<settings.getOrder(); j++) {
+//                for(int k=0; k<cells.length; k++) {
+//                    if(cells[k].getX()==j && cells[k].getY()==i){
+//                        this.add(cells[k]);
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    public void OutofOrder(){
+//
+//    }
+//    public int move(int n){                                             //单步移动方法
+//        if(n==0 && cells[cells.length-1].getX()!=0){       //左侧块右移
+//            for (Cell cell : cells) {
+//                if (cell.getX() == cells[cells.length - 1].getX() - 1 && cell.getY() == cells[cells.length - 1].getY()) {
+//                    cell.setX(cell.getX() + 1);
+//                    cells[cells.length - 1].setX(cells[cells.length - 1].getX() - 1);
+//                    return 1;
+//                }
+//            }
+//            return 0;
+//        }
+//        if(n==1 && cells[cells.length-1].getY()!=0){       //上侧块下移
+//            for (Cell cell : cells) {
+//                if (cell.getX() == cells[cells.length - 1].getX() && cell.getY() == cells[cells.length - 1].getY() - 1) {
+//                    cell.setY(cell.getY() + 1);
+//                    cells[cells.length - 1].setY(cells[cells.length - 1].getY() - 1);
+//                    return 1;
+//                }
+//            }
+//            return 0;
+//        }
+//        if(n==2 && cells[cells.length-1].getX()!=settings.getOrder()-1){       //右侧块左移
+//            for (Cell cell : cells) {
+//                if (cell.getX() == cells[cells.length - 1].getX() + 1 && cell.getY() == cells[cells.length - 1].getY()) {
+//                    cell.setX(cell.getX() - 1);
+//                    cells[cells.length - 1].setX(cells[cells.length - 1].getX() + 1);
+//                    return 1;
+//                }
+//            }
+//            return 0;
+//        }
+//        if(n==3 && cells[cells.length-1].getY()!=settings.getOrder()-1){       //下侧块上移
+//            for (Cell cell : cells) {
+//                if (cell.getX() == cells[cells.length - 1].getX() && cell.getY() == cells[cells.length - 1].getY() + 1) {
+//                    cell.setY(cell.getY() - 1);
+//                    cells[cells.length - 1].setY(cells[cells.length - 1].getY() + 1);
+//                    return 1;
+//                }
+//            }
+//            return 0;
+//        }
+//        else return 0;
+//    }
+//
+//    public boolean IsWin(){
+//        for (Cell cell : cells) {
+//            if (cell.getX() * settings.getOrder() + cell.getY() != cell.getID()) return false;
+//        }
+//        return true;
+//    }
     @Override
     public void mouseClicked(MouseEvent e) {
 //        Cell t = (Cell)e.getSource();
