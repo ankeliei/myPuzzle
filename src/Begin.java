@@ -20,8 +20,8 @@ public class Begin {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("点击了开始游戏按钮");
-
                 gamePanel = new GamePanel(settings);
+                mainArea.removeAll();
                 mainArea.add(gamePanel);
                 //https://stackoverflow.com/questions/9639017/intellij-gui-creator-jpanel-gives-runtime-null-pointer-exception-upon-adding-an
                 mainArea.revalidate();

@@ -5,10 +5,10 @@ public class Cell extends JButton {
     private int buttonSize;
     private int ID;
     private String tag;
-    private int x;
-    private int y;
+    private int positionX;
+    private int positionY;
 
-    public Cell(Icon icon, int id, int buttonSize, boolean tag, int x, int y){
+    public Cell(Icon icon, int id, int buttonSize, boolean tag, int positionX, int positionY){
         this.setIcon(icon);
         ID = id;
         this.buttonSize = buttonSize;
@@ -19,8 +19,8 @@ public class Cell extends JButton {
         if (tag) {
             this.setText(""+id);
         }
-        this.x = x;
-        this.y = y;
+        this.positionX = positionX;
+        this.positionY = positionY;
     }
 
     public int getButtonSize() {
@@ -45,11 +45,11 @@ public class Cell extends JButton {
         this.tag = tag;
     }
 
-    public int getX() { return x; }
+    public int getPositionX() { return positionX; }
 
-    public int getY() { return y; }
+    public int getPositionY() { return positionY; }
 
-    public void setX(int x) { this.x = x; }
+    public void setPositionX(int positionX) { this.positionX = positionX; }
 
-    public void setY(int y) { this.y = y; }
+    public void setPositionY(int positionY) { this.positionY = positionY; }
 }
