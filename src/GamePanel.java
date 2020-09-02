@@ -1,22 +1,30 @@
+import sun.plugin2.message.JavaObjectOpMessage;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 import javax.imageio.ImageIO;
 
-public class GamePanel extends JPanel implements MouseListener {
+public class GamePanel extends JPanel implements MouseListener, KeyListener {
 
     private Settings settings;
     private Cell cells[];
     private int totalSize;
+    private  boolean isWine = false;
 
     public GamePanel(Settings settings) {
         this.settings = settings;
         cells = new Cell[settings.getOrder()*settings.getOrder()];
         GridLayout gy = new GridLayout(settings.getOrder(),settings.getOrder());        //设置一个网格布局
         this.setLayout(gy);
+        this.setFocusable(true);
+        this.addKeyListener(this);
         init();
     }
 
@@ -52,8 +60,9 @@ public class GamePanel extends JPanel implements MouseListener {
             for (int j=0; j<settings.getOrder(); j++){
                 bufnew = buf.getSubimage(startX+j*singleSize, startY+i*singleSize, singleSize, singleSize);     //这里注意，i,j与X，Y的方向存在转换问题
                 icon = new ImageIcon(bufnew);
-                cells[i*settings.getOrder()+j] = new Cell(icon, i*settings.getOrder()+j, singleSize, settings.getLable(), j, i);
+                cells[i*settings.getOrder()+j] = new Cell(icon, i*settings.getOrder()+j, singleSize, settings.getTag(), j, i);
                 cells[i*settings.getOrder()+j].addMouseListener(this);
+//                cells[i*settings.getOrder()+j].addKeyListener(this);
                 if(i==j && i==(settings.getOrder()-1)){         //如果到了右下角，按钮的背景图设置为纯白，标签置空。
                     ImageIcon iconWhite = new ImageIcon("src/pictures/white.jpg");
                     cells[i*settings.getOrder()+j].setIcon(iconWhite);
@@ -61,14 +70,8 @@ public class GamePanel extends JPanel implements MouseListener {
                 }
             }
         }
-
-        for(int i=0; i<cells.length-1; i++) {
-            this.add(cells[i]);
-        }
-
-//        ViewCells();
-
-
+        OutofOrder();       //打乱顺序
+        viewCells();        //显示游戏面板
         totalSize = singleSize*settings.getOrder();
     }
 
@@ -79,6 +82,7 @@ public class GamePanel extends JPanel implements MouseListener {
                 for(int k=0; k<cells.length; k++) {
                     if(cells[k].getPositionX()==j && cells[k].getPositionY()==i){
                         this.add(cells[k]);
+                        break;
                     }
                 }
             }
@@ -87,15 +91,29 @@ public class GamePanel extends JPanel implements MouseListener {
     }
 
     public void OutofOrder(){
+        Random random = new Random();           //第一步先随机发生一些步数
+        for(int i=0; i<settings.getOrder()*settings.getOrder()*settings.getOrder();){
+            int s = random.nextInt(4);
+            i = i + move(s);
+        }
+            //第二部将不在右下角的白块归位
+        int x =settings.getOrder()-1 - cells[cells.length-1].getPositionX();
+        int y =settings.getOrder()-1 - cells[cells.length-1].getPositionY();
 
+        for(int i=0; i<x; i++){
+            move(2);
+        }
+        for(int i=0; i<y; i++){
+            move(3);
+        }
     }
+
     public int move(int n){                                             //单步移动方法
         if(n==0 && cells[cells.length-1].getPositionX()!=0){       //左侧块右移
             for (Cell cell : cells) {
                 if (cell.getPositionX() == cells[cells.length - 1].getPositionX() - 1 && cell.getPositionY() == cells[cells.length - 1].getPositionY()) {
                     cell.setPositionX(cell.getPositionX() + 1);
                     cells[cells.length - 1].setPositionX(cells[cells.length - 1].getPositionX() - 1);
-                    viewCells();
                     return 1;
                 }
             }
@@ -106,7 +124,6 @@ public class GamePanel extends JPanel implements MouseListener {
                 if (cell.getPositionX() == cells[cells.length - 1].getPositionX() && cell.getPositionY() == cells[cells.length - 1].getPositionY() - 1) {
                     cell.setPositionY(cell.getPositionY() + 1);
                     cells[cells.length - 1].setPositionY(cells[cells.length - 1].getPositionY() - 1);
-                    viewCells();
                     return 1;
                 }
             }
@@ -117,7 +134,6 @@ public class GamePanel extends JPanel implements MouseListener {
                 if (cell.getPositionX() == cells[cells.length - 1].getPositionX() + 1 && cell.getPositionY() == cells[cells.length - 1].getPositionY()) {
                     cell.setPositionX(cell.getPositionX() - 1);
                     cells[cells.length - 1].setPositionX(cells[cells.length - 1].getPositionX() + 1);
-                    viewCells();
                     return 1;
                 }
             }
@@ -128,7 +144,6 @@ public class GamePanel extends JPanel implements MouseListener {
                 if (cell.getPositionX() == cells[cells.length - 1].getPositionX() && cell.getPositionY() == cells[cells.length - 1].getPositionY() + 1) {
                     cell.setPositionY(cell.getPositionY() - 1);
                     cells[cells.length - 1].setPositionY(cells[cells.length - 1].getPositionY() + 1);
-                    viewCells();
                     return 1;
                 }
             }
@@ -137,32 +152,45 @@ public class GamePanel extends JPanel implements MouseListener {
         else return 0;
     }
 
+    public boolean IsWin(){
+        for (int i=0; i< cells.length; i++) {
+            if ((cells[i].getPositionX() + cells[i].getPositionY() * settings.getOrder()) != cells[i].getID()) {
+                System.out.println("第"+ i +"个位置不对");
+                return false;
+            }
+        }
+        isWine = true;
+        return true;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
+        if(isWine) return;
         Cell t = (Cell)e.getSource();
         if(t.getPositionY() ==cells[cells.length-1].getPositionY() && t.getPositionX()==cells[cells.length-1].getPositionX()-1) {
             this.move(0);
+            viewCells();
+            if (IsWin()) JOptionPane.showMessageDialog(null,"恭喜您游戏胜利！","提示",JOptionPane.ERROR_MESSAGE);
             return;
         }
         if(t.getPositionY() ==cells[cells.length-1].getPositionY() -1 && t.getPositionX()==cells[cells.length-1].getPositionX()) {
             this.move(1);
+            viewCells();
+            if (IsWin()) JOptionPane.showMessageDialog(null,"恭喜您游戏胜利！","提示",JOptionPane.ERROR_MESSAGE);
             return;
         }
         if(t.getPositionY() ==cells[cells.length-1].getPositionY()  && t.getPositionX()==cells[cells.length-1].getPositionX()+1) {
             this.move(2);
+            viewCells();
+            if (IsWin()) JOptionPane.showMessageDialog(null,"恭喜您游戏胜利！","提示",JOptionPane.ERROR_MESSAGE);
             return;
         }
         if(t.getPositionY() ==cells[cells.length-1].getPositionY() +1 && t.getPositionX()==cells[cells.length-1].getPositionX()) {
             this.move(3);
+            viewCells();
+            if (IsWin()) JOptionPane.showMessageDialog(null,"恭喜您游戏胜利！","提示",JOptionPane.ERROR_MESSAGE);
             return;
         }
-    }
-
-    public boolean IsWin(){
-        for (Cell cell : cells) {
-            if (cell.getPositionX() * settings.getOrder() + cell.getPositionY() != cell.getID()) return false;
-        }
-        return true;
     }
 
     @Override
@@ -182,6 +210,45 @@ public class GamePanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(isWine) return;
+        if(e.getKeyCode()==KeyEvent.VK_D) {
+            this.move(0);
+            viewCells();
+            if (IsWin()) JOptionPane.showMessageDialog(null,"恭喜您游戏胜利！","提示",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if(e.getKeyCode()==KeyEvent.VK_S) {
+            this.move(0);
+            viewCells();
+            if (IsWin()) JOptionPane.showMessageDialog(null,"恭喜您游戏胜利！","提示",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if(e.getKeyCode()==KeyEvent.VK_A) {
+            this.move(0);
+            viewCells();
+            if (IsWin()) JOptionPane.showMessageDialog(null,"恭喜您游戏胜利！","提示",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if(e.getKeyCode()==KeyEvent.VK_W) {
+            this.move(0);
+            viewCells();
+            if (IsWin()) JOptionPane.showMessageDialog(null,"恭喜您游戏胜利！","提示",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
 
     }
 }

@@ -3,16 +3,16 @@ import java.io.File;
 public class Settings {
     private int order;
     private File file;
-    private boolean lable;
+    private boolean tag;
 
     public Settings(){
         order = 3;
         file = new File("src/pictures/蒙娜丽莎（默认）.jpg");
-        lable = false;
+        tag = false;
     }
 
-    public boolean getLable() {
-        return lable;
+    public boolean getTag() {
+        return tag;
     }
 
     public int getOrder() {
@@ -31,7 +31,7 @@ public class Settings {
         this.file = file;
     }
 
-    public void setLable(boolean lable) {
-        this.lable = lable;
+    public void setTag(boolean tag) {
+        this.tag = tag;
     }
 }

@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Cell extends JButton {
+public class Cell extends JLabel {
     private int buttonSize;
     private int ID;
     private String tag;
@@ -19,6 +19,7 @@ public class Cell extends JButton {
         if (tag) {
             this.setText(""+id);
         }
+        this.setHorizontalTextPosition(this.CENTER);
         this.positionX = positionX;
         this.positionY = positionY;
     }
