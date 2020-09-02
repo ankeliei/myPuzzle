@@ -1,5 +1,3 @@
-import sun.plugin2.message.JavaObjectOpMessage;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -161,6 +159,14 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener {
         }
         isWine = true;
         return true;
+    }
+
+    public void preStep(){
+        System.out.println("开始处理上一步");
+    }
+
+    public void nextStep(){
+        System.out.println("开始处理下一步");
     }
 
     @Override
