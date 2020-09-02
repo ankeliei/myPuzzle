@@ -47,12 +47,24 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener {
         ImageHeight = buf.getHeight();
         System.out.println("ImageWidth--->"+ImageWidth+"    ImageHeight--->"+ImageHeight);
 
+        float n = (float)Math.min(ImageWidth, ImageHeight)/420;                  //取得缩放比
+
+        ImageWidth = (int) (ImageWidth/n);                  //拿到目标尺寸
+        ImageHeight = (int) (ImageHeight/n);
+
+        BufferedImage tmp = new BufferedImage(ImageWidth, ImageHeight, BufferedImage.TYPE_INT_ARGB);        //设置变换后的图片模板
+        tmp.getGraphics().drawImage(buf.getScaledInstance(ImageWidth, ImageHeight, Image.SCALE_SMOOTH),0,0,null);   //将原图按比例填入模板
+
+        buf = tmp;
+
+        singleSize = (ImageWidth >= ImageHeight) ? ImageHeight/settings.getOrder() : ImageWidth/settings.getOrder();
+        System.out.println("Cell_Size--->"+singleSize);
+
         if(ImageWidth >= ImageHeight)           //划定图片的使用范围
             startX = ( ImageWidth-ImageHeight )/2;
         else
             startY = ( ImageHeight-ImageWidth )/2;
-        singleSize = (ImageWidth >= ImageHeight) ? ImageHeight/settings.getOrder() : ImageWidth/settings.getOrder();
-        System.out.println("Cell_Size--->"+singleSize);
+
 
         for (int i=0; i<settings.getOrder(); i++){
             for (int j=0; j<settings.getOrder(); j++){
