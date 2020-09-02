@@ -14,10 +14,12 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener {
     private Settings settings;
     private Cell cells[];
     private int totalSize;
-    private  boolean isWine = false;
+    private boolean isWine = false;
+    private Steps steps;
 
-    public GamePanel(Settings settings) {
+    public GamePanel(Settings settings, Steps steps) {
         this.settings = settings;
+        this.steps = steps;
         cells = new Cell[settings.getOrder()*settings.getOrder()];
         GridLayout gy = new GridLayout(settings.getOrder(),settings.getOrder());        //设置一个网格布局
         this.setLayout(gy);
@@ -55,7 +57,7 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener {
         BufferedImage tmp = new BufferedImage(ImageWidth, ImageHeight, BufferedImage.TYPE_INT_ARGB);        //设置变换后的图片模板
         tmp.getGraphics().drawImage(buf.getScaledInstance(ImageWidth, ImageHeight, Image.SCALE_SMOOTH),0,0,null);   //将原图按比例填入模板
 
-        buf = tmp;
+        buf = tmp;                              //拿到变化后的图片
 
         singleSize = (ImageWidth >= ImageHeight) ? ImageHeight/settings.getOrder() : ImageWidth/settings.getOrder();
         System.out.println("Cell_Size--->"+singleSize);
@@ -175,10 +177,36 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener {
 
     public void preStep(){
         System.out.println("开始处理上一步");
+        if(isWine) return;
+        if(steps.hasPre()){
+            int t = steps.getPre();
+            System.out.println("原步骤是"+t);
+            switch (t){
+                case 0: t = 2; break;
+                case 1: t = 3; break;
+                case 2: t = 0; break;
+                case 3: t = 1; break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + t);
+            }
+            int r = move(t);
+            System.out.println("移动步骤是"+t+"   还原返回值"+r);
+            viewCells();
+            steps.printAll();
+        }
     }
 
     public void nextStep(){
         System.out.println("开始处理下一步");
+        if(isWine) return;
+        if(steps.hasNext()){
+            int t = steps.getNext();
+            System.out.println("原步骤是"+t);
+            int r = move(t);
+            System.out.println("移动步骤是"+t+"   还原返回值"+r);
+            viewCells();
+            steps.printAll();
+        }
     }
 
     @Override
@@ -186,25 +214,29 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener {
         if(isWine) return;
         Cell t = (Cell)e.getSource();
         if(t.getPositionY() ==cells[cells.length-1].getPositionY() && t.getPositionX()==cells[cells.length-1].getPositionX()-1) {
-            this.move(0);
+            int r = this.move(0);
+            if(r == 1) steps.add(0);
             viewCells();
             if (IsWin()) JOptionPane.showMessageDialog(null,"恭喜您游戏胜利！","提示",JOptionPane.ERROR_MESSAGE);
             return;
         }
         if(t.getPositionY() ==cells[cells.length-1].getPositionY() -1 && t.getPositionX()==cells[cells.length-1].getPositionX()) {
-            this.move(1);
+            int r = this.move(1);
+            if(r == 1) steps.add(1);
             viewCells();
             if (IsWin()) JOptionPane.showMessageDialog(null,"恭喜您游戏胜利！","提示",JOptionPane.ERROR_MESSAGE);
             return;
         }
         if(t.getPositionY() ==cells[cells.length-1].getPositionY()  && t.getPositionX()==cells[cells.length-1].getPositionX()+1) {
-            this.move(2);
+            int r = this.move(2);
+            if(r == 1) steps.add(2);
             viewCells();
             if (IsWin()) JOptionPane.showMessageDialog(null,"恭喜您游戏胜利！","提示",JOptionPane.ERROR_MESSAGE);
             return;
         }
         if(t.getPositionY() ==cells[cells.length-1].getPositionY() +1 && t.getPositionX()==cells[cells.length-1].getPositionX()) {
-            this.move(3);
+            int r = this.move(3);
+            if(r == 1) steps.add(3);
             viewCells();
             if (IsWin()) JOptionPane.showMessageDialog(null,"恭喜您游戏胜利！","提示",JOptionPane.ERROR_MESSAGE);
             return;
