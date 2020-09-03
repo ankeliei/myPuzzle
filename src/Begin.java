@@ -35,15 +35,15 @@ public class Begin {
 
         settings = new Settings();
         controller = new Controller(settings);
+//        controller.setSteps(steps);
+        gamePanel = new GamePanel();
+        controller.setGamePanel(gamePanel);
 
         newGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("点击了开始游戏按钮");
-                steps = new Steps();
-                gamePanel = new GamePanel(settings, steps);
-                controller.setGamePanel(gamePanel);
-                controller.setSteps(steps);
+                controller.init();
                 mainArea.removeAll();
                 mainArea.add(gamePanel);
                 mainArea.revalidate();

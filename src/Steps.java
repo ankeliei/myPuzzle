@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Steps {
-    List<Integer> list=new ArrayList<Integer>();
+    List<Integer> list= new ArrayList<>();
     private int step_next = 0;       //步骤数组中下一步存储位置的索引
 
     public void add(int n){
