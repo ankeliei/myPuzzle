@@ -14,12 +14,6 @@ public class Steps {
         step_next++;
     }
 
-    public void printAll(){
-        for (Integer integer : list) System.out.print(integer+" ");
-        System.out.println();
-        System.out.println(step_next+"    "+list.size());
-    }
-
     public boolean hasPre(){            //存在上一步吗
         return step_next!=0;
     }

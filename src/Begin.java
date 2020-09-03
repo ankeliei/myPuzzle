@@ -1,15 +1,11 @@
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.io.File;
 
 public class Begin {
     private Controller controller;
-    private Steps steps;
     private JPanel mainArea;
     private GamePanel gamePanel;
     private Settings settings;
@@ -26,8 +22,7 @@ public class Begin {
     private JButton preButton;
 
     public Begin() {
-
-        JFrame frame = new JFrame("Begin");
+        JFrame frame = new JFrame("拼图游戏");
         frame.setContentPane(this.panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
@@ -35,7 +30,6 @@ public class Begin {
 
         settings = new Settings();
         controller = new Controller(settings);
-//        controller.setSteps(steps);
         gamePanel = new GamePanel();
         controller.setGamePanel(gamePanel);
 

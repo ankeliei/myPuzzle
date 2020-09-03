@@ -1,20 +1,11 @@
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Random;
-import javax.imageio.ImageIO;
 
 public class GamePanel extends JPanel {
 
     private Settings settings;
-    private Cell cells[];
-    private boolean isWine = false;
     private Steps steps;
+    private Cell[] cells;
+    private boolean isWine = false;
 
     public GamePanel() {
 

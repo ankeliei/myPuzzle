@@ -111,7 +111,6 @@ public class Controller implements MouseListener {
             int r = move(t);
             System.out.println("移动步骤是"+t+"   还原返回值"+r);
             viewCells();
-            steps.printAll();
         }
     }
 
@@ -124,7 +123,6 @@ public class Controller implements MouseListener {
             int r = move(t);
             System.out.println("移动步骤是"+t+"   还原返回值"+r);
             viewCells();
-            steps.printAll();
         }
     }
 
@@ -217,7 +215,6 @@ public class Controller implements MouseListener {
     }
 
     public void init() {
-//        gamePanel = new GamePanel();
         gamePanel.setSettings(settings);
         steps = new Steps();
         gamePanel.setSteps(steps);
@@ -281,7 +278,6 @@ public class Controller implements MouseListener {
         }
         OutofOrder();       //打乱顺序
         viewCells();        //显示游戏面板
-//        totalSize = singleSize*settings.getOrder();
     }
 
     @Override
@@ -314,7 +310,6 @@ public class Controller implements MouseListener {
             if(r == 1) steps.add(3);
             viewCells();
             if (IsWin()) JOptionPane.showMessageDialog(null,"恭喜您游戏胜利！","提示",JOptionPane.ERROR_MESSAGE);
-            return;
         }
     }
 
