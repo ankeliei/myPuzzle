@@ -78,7 +78,7 @@ public class Begin {
                 }
             }
         });
-        spinner1.addItemListener(new ItemListener() {
+        spinner1.addItemListener(new ItemListener() {               //阶数切换侦听器
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if(e.getStateChange() == ItemEvent.SELECTED){
@@ -105,6 +105,17 @@ public class Begin {
                 }
             }
         });
+        numberRadioButton.addItemListener(new ItemListener() {          //数字标签选择侦听器
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange()==1){
+                    settings.setTag(true);
+                }
+                if (e.getStateChange()==2){
+                    settings.setTag(false);
+                }
+            }
+        });
     }
     private Steps steps;
     private JPanel mainArea;
@@ -117,7 +128,6 @@ public class Begin {
     private JLabel difficultyLable;
     private JLabel numberPictureLable;
     private JComboBox spinner1;
-    private JRadioButton pictureRadioButton;
     private JRadioButton numberRadioButton;
     private JComboBox comboBox1;
     private JButton choosePictureButton;

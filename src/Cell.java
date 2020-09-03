@@ -18,6 +18,8 @@ public class Cell extends JLabel {
         this.setBorder(null);                       //设置按钮不显示边框
         if (tag) {
             this.setText(""+id);
+            this.setFont(new Font("宋体",Font.PLAIN,22));
+            this.setForeground(Color.RED);
         }
         this.setHorizontalTextPosition(this.CENTER);
         this.positionX = positionX;

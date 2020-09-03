@@ -62,6 +62,11 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener {
         singleSize = (ImageWidth >= ImageHeight) ? ImageHeight/settings.getOrder() : ImageWidth/settings.getOrder();
         System.out.println("Cell_Size--->"+singleSize);
 
+        int baseSize = (ImageWidth >= ImageHeight) ? ImageHeight : ImageWidth;      //选取基准尺寸
+
+
+
+
         if(ImageWidth >= ImageHeight)           //划定图片的使用范围
             startX = ( ImageWidth-ImageHeight )/2;
         else
