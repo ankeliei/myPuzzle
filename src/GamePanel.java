@@ -79,7 +79,6 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener {
                 icon = new ImageIcon(bufnew);
                 cells[i*settings.getOrder()+j] = new Cell(icon, i*settings.getOrder()+j, singleSize, settings.getTag(), j, i);
                 cells[i*settings.getOrder()+j].addMouseListener(this);
-//                cells[i*settings.getOrder()+j].addKeyListener(this);
                 if(i==j && i==(settings.getOrder()-1)){         //如果到了右下角，按钮的背景图设置为纯白，标签置空。
                     ImageIcon iconWhite = new ImageIcon("src/pictures/white.jpg");
                     cells[i*settings.getOrder()+j].setIcon(iconWhite);
@@ -90,6 +89,10 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener {
         OutofOrder();       //打乱顺序
         viewCells();        //显示游戏面板
         totalSize = singleSize*settings.getOrder();
+    }
+
+    public Cell[] getCells(){
+        return cells;
     }
 
     public void viewCells() {
@@ -180,26 +183,6 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener {
         return true;
     }
 
-    public void preStep(){
-        System.out.println("开始处理上一步");
-        if(isWine) return;
-        if(steps.hasPre()){
-            int t = steps.getPre();
-            System.out.println("原步骤是"+t);
-            switch (t){
-                case 0: t = 2; break;
-                case 1: t = 3; break;
-                case 2: t = 0; break;
-                case 3: t = 1; break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + t);
-            }
-            int r = move(t);
-            System.out.println("移动步骤是"+t+"   还原返回值"+r);
-            viewCells();
-            steps.printAll();
-        }
-    }
 
     public void nextStep(){
         System.out.println("开始处理下一步");
@@ -212,6 +195,14 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener {
             viewCells();
             steps.printAll();
         }
+    }
+
+    public boolean isWine() {
+        return isWine;
+    }
+
+    public void setWine(boolean wine) {
+        isWine = wine;
     }
 
     @Override
