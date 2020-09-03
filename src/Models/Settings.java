@@ -1,3 +1,5 @@
+package Models;
+
 import java.io.File;
 
 public class Settings {

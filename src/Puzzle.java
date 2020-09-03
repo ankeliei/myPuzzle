@@ -1,3 +1,5 @@
+import View.Begin;
+
 public class Puzzle {
     public static void main(String[] argc){
         new Begin();

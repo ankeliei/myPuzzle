@@ -1,3 +1,8 @@
+package View;
+
+import Controller.Controller;
+import Models.*;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,8 +17,8 @@ public class Begin {
     private JTabbedPane tabbedPane1;
     private JPanel panel1;
     private JButton newGameButton;
-    private JLabel difficultyLable;
-    private JLabel numberPictureLable;
+    private JLabel difficultyLabel;
+    private JLabel numberPictureLabel;
     private JComboBox spinner1;
     private JRadioButton numberRadioButton;
     private JComboBox comboBox1;

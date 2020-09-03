@@ -1,3 +1,9 @@
+package View;
+
+import Models.Cell;
+import Models.Settings;
+import Models.Steps;
+
 import javax.swing.*;
 
 public class GamePanel extends JPanel {

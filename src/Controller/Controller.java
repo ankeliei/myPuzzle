@@ -1,8 +1,14 @@
+package Controller;
+
+import Models.Cell;
+import Models.Settings;
+import Models.Steps;
+import View.GamePanel;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
